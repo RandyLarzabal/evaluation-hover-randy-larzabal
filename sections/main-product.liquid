@@ -49,7 +49,7 @@
             <div class="flex transition-transform duration-300 ease-in-out" id="slider">
               {% assign images = product.media | where: 'media_type', 'image' %}
               {% if images.size > 0 %}
-                {% for media in images %}
+                {% for media in images limit: 5 %}
                   <div class="relative">
                     {% if forloop.first and section.settings.badge_text %}
                       <span class="bg-sage-light absolute top-5 left-5 text-dark text-xs font-medium rounded-full px-4 py-2 z-10">
@@ -429,8 +429,9 @@
       const translateX = -currentSlide * 100;
       slider.style.transform = `translateX(${translateX}vw)`;
 
-      const indicatorPosition = totalSlides > 1 ? (currentSlide / (totalSlides - 1)) * 100 : 0;
-      const indicatorWidth = totalSlides > 0 ? 100 / totalSlides : 100;
+      const indicatorPosition = currentSlide * 20; // 20% par slide
+      const indicatorWidth = 20; // Fixe à 20% (100/5 slides)
+
       progressIndicator.style.left = `${indicatorPosition}%`;
       progressIndicator.style.width = `${indicatorWidth}%`;
     }
